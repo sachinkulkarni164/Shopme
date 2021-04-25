@@ -14,7 +14,7 @@
 	<name>ProductRest</name>
 	<description>Product Rest api</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>15</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
