@@ -29,10 +29,10 @@ public class ProductController {
 	public ResponseEntity<Product> get(@PathVariable Integer id) {
 		try {
 		Product product = service.get(id);
-		return new ResponseEntity<>(product,HttpStatus.OK);
+		return new ResponseEntity<Product>(product,HttpStatus.OK);
 		}
 		catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 		}
 		
 	}
@@ -46,7 +46,7 @@ public class ProductController {
 	public ResponseEntity<?> update(@RequestBody Product product,
 		@PathVariable Integer id) {
 		try {
-		//Product existProduct = service.get(id);
+		Product existProduct = service.get(id);
 		service.save(product);
 		return new ResponseEntity<>(service.get(id),HttpStatus.OK);
 		}
