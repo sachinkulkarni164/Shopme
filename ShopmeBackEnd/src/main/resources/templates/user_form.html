@@ -11,6 +11,7 @@
 <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script type="text/javascript"
 	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	
 </head>
 
 <body>
@@ -54,7 +55,7 @@
 		</div>
 		</nav>
 		<div>
-			<h2>Manage User | Create New User</h2>
+			<h2>Manage User | [[${pageTitle}]]</h2>
 
 		</div>
 		<form th:action="@{/users/save}" method="POST"
@@ -154,10 +155,7 @@
 				if (response == "OK") {
 					form.submit();
 				} else if (response == "Duplicated") {
-					showModalDialog("Warning", "There is another user having email" + userEmail);
-					alert("Another user is registered with this " + userEmail
-							+ " mail");
-
+					showModalDialog("Warning", "There is another user registerd with email " + userEmail);
 				} else{
 					showModalDialog("Error", "Unknow response from server");
 				}
@@ -167,7 +165,7 @@
 			});
 			return false;
 		}
-		fuction showModalDialog(title, message) {
+		function showModalDialog(title, message) {
 			$("#modalTitle").text(title);
 			$("#modalBody").text(message);
 			$("#modalDialog").modal();
