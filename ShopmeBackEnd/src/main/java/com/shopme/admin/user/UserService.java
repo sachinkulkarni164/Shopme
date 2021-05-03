@@ -34,8 +34,18 @@ public class UserService {
 	}
 
 	public void save(User user) {
-		// TODO Auto-generated method stub
-		encodePassword(user);
+		boolean isUpdatingUser = (user.getId() != null);
+		if(isUpdatingUser) {
+		User existingUser = userRepo.findById(user.getId()).get();
+			if(user.getPassword().isEmpty()) {
+				user.setPassword(existingUser.getPassword());
+			} else {
+				encodePassword(user);
+			}
+		}else {
+			encodePassword(user);
+		}
+		
 		userRepo.save(user);
 		
 	}
@@ -45,9 +55,20 @@ public class UserService {
 		user.setPassword(encodePassword);
 			}
 	
-	public boolean isEmailUnique(String email) {
+	public boolean isEmailUnique(Integer id, String email) {
 		User userByEmail = userRepo.getUserByEmail(email);
-		return userByEmail == null;
+		
+		if(userByEmail == null) return true;
+		boolean isCreatingNew = (id == null);
+		
+		if(isCreatingNew) {
+			if(userByEmail != null) return false;
+		} else {
+			if(userByEmail.getId() != id) {
+				return false;
+			}
+		}
+		return true;
 		
 	}
 
