@@ -89,15 +89,46 @@
 						</td>
 						<td><a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user"></a>
 						 &nbsp;
-						<a class="fas fa-trash-alt fa-2x icon-dark"  href=""></a></td>
+						<a class="fas fa-trash-alt fa-2x icon-dark link-delete"  th:href="@{'/users/delete/' + ${user.id}}" th:userId = "${user.id}" title="Delete this user"></a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+		<div class="modal fade text-center" id="confirmModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" >Delete Confirmation</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<span id="confirmText"> Are you sure to delete this ?</span>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="" id="yesButton">Yes</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="text-center">
 		<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 	</div>
+	<script type="text/javascript">
+	$(document).ready(function(e){
+		$(".link-delete").on("click", function(e){
+		e.preventDefault();
+		link = $(this);
+		//alert($(this).attr("href"));
+		userId = link.attr("userId");
+		$("#yesButton").attr("href",link.attr("href"));
+		$("#confirmText").text("Are u sure to delete this user id " + userId + "?");
+		$("#confirmModal").modal();
+	});
+	});
+	
+	</script>
 
 </body>
 
